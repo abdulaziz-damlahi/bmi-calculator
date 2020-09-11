@@ -19,27 +19,7 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Color maleCardColor = widgetcolor;
-  Color femaleCardColor = widgetcolor;
-
-  void updatecolor(Gender gender) {
-    if (gender == Gender.male) {
-      if (maleCardColor == widgetcolor) {
-        maleCardColor = activecardcolor;
-        femaleCardColor = widgetcolor;
-      } else {
-        maleCardColor = widgetcolor;
-      }
-    }
-    if (gender == Gender.female) {
-      if (femaleCardColor == widgetcolor) {
-        femaleCardColor = activecardcolor;
-        maleCardColor = widgetcolor;
-      } else {
-        femaleCardColor = widgetcolor;
-      }
-    }
-  }
+  Gender selectedgender;
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +36,13 @@ class _InputPageState extends State<InputPage> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      updatecolor(Gender.male);
+                      selectedgender = Gender.male;
                     });
                   },
                   child: reusable(
-                    colour: maleCardColor,
+                    colour: selectedgender == Gender.male
+                        ? activecardcolor
+                        : widgetcolor,
                     cardChild: iconcontent(
                       icon: FontAwesomeIcons.mars,
                       label: 'male',
@@ -72,11 +54,13 @@ class _InputPageState extends State<InputPage> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
-                      updatecolor(Gender.female);
+                      selectedgender = Gender.female;
                     });
                   },
                   child: reusable(
-                    colour: femaleCardColor,
+                    colour: selectedgender == Gender.female
+                        ? activecardcolor
+                        : widgetcolor,
                     cardChild: iconcontent(
                       icon: FontAwesomeIcons.venus,
                       label: 'female',
