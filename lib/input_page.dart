@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+const bottomContanerH = 80.0;
+const widgetcolor = Color(0xff1d1e33);
+const widgetcolorbottom = Color(0xFFEB12555);
+
 class InputPage extends StatefulWidget {
   @override
   _InputPageState createState() => _InputPageState();
@@ -19,19 +23,19 @@ class _InputPageState extends State<InputPage> {
             children: <Widget>[
               Expanded(
                 child: reusable(
-                  colour: Color(0xff1d1e33),
+                  colour: widgetcolor,
                 ),
               ),
               Expanded(
                 child: reusable(
-                  colour: Color(0xff1d1e33),
+                  colour: widgetcolor,
                 ),
               ),
             ],
           )),
           Expanded(
             child: reusable(
-              colour: Color(0xff1d1e33),
+              colour: widgetcolor,
             ),
           ),
           Expanded(
@@ -39,16 +43,22 @@ class _InputPageState extends State<InputPage> {
             children: <Widget>[
               Expanded(
                 child: reusable(
-                  colour: Color(0xff1d1e33),
+                  colour: widgetcolor,
                 ),
               ),
               Expanded(
                 child: reusable(
-                  colour: Color(0xff1d1e33),
+                  colour: widgetcolor,
                 ),
               )
             ],
           )),
+          Container(
+            color: widgetcolorbottom,
+            margin: EdgeInsets.only(top: 10),
+            width: double.infinity,
+            height: bottomContanerH,
+          ),
         ],
       ),
     );
@@ -57,7 +67,9 @@ class _InputPageState extends State<InputPage> {
 
 class reusable extends StatelessWidget {
   reusable({@required this.colour});
-  Color colour;
+
+  final Color colour;
+
   @override
   Widget build(BuildContext context) {
     return Container(
