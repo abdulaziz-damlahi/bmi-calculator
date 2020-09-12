@@ -1,12 +1,11 @@
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable.dart';
 import 'icon_content.dart';
-
-const bottomContanerH = 80.0;
-const widgetcolor = Color(0xff1d1e33);
-const widgetcolorbottom = Color(0xFFEB12555);
-const activecardcolor = Color(0xf0000000);
+import 'constant.dart';
 
 enum Gender {
   male,
@@ -20,7 +19,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender selectedgender;
-
+  int height = 180;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,43 +27,40 @@ class _InputPageState extends State<InputPage> {
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
               child: Row(
             children: <Widget>[
               Expanded(
-                child: GestureDetector(
-                  onTap: () {
+                child: reusable(
+                  onpress: () {
                     setState(() {
                       selectedgender = Gender.male;
                     });
                   },
-                  child: reusable(
-                    colour: selectedgender == Gender.male
-                        ? activecardcolor
-                        : widgetcolor,
-                    cardChild: iconcontent(
-                      icon: FontAwesomeIcons.mars,
-                      label: 'male',
-                    ),
+                  colour: selectedgender == Gender.male
+                      ? kactivecardcolor
+                      : kwidgetcolor,
+                  cardChild: iconcontent(
+                    icon: FontAwesomeIcons.mars,
+                    label: 'MALE',
                   ),
                 ),
               ),
               Expanded(
-                child: GestureDetector(
-                  onTap: () {
+                child: reusable(
+                  onpress: () {
                     setState(() {
                       selectedgender = Gender.female;
                     });
                   },
-                  child: reusable(
-                    colour: selectedgender == Gender.female
-                        ? activecardcolor
-                        : widgetcolor,
-                    cardChild: iconcontent(
-                      icon: FontAwesomeIcons.venus,
-                      label: 'female',
-                    ),
+                  colour: selectedgender == Gender.female
+                      ? kactivecardcolor
+                      : kwidgetcolor,
+                  cardChild: iconcontent(
+                    icon: FontAwesomeIcons.venus,
+                    label: 'FEMALE',
                   ),
                 ),
               ),
@@ -72,7 +68,44 @@ class _InputPageState extends State<InputPage> {
           )),
           Expanded(
             child: reusable(
-              colour: widgetcolor,
+              colour: kwidgetcolor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'HEIGHT',
+                    style: klabelTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: <Widget>[
+                      Text(
+                        height.toString(),
+                        style: kNumberTextStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style: klabelTextStyle,
+                      ),
+                    ],
+                  ),
+                  Slider(
+                    value: height.toDouble(),
+                    min: 0,
+                    max: 220,
+                    activeColor: Color(0xFFEB1555),
+                    inactiveColor: Color(0xFFE8d),
+                    label: height.round().toString(),
+                    onChanged: (double value) {
+                      setState(() {
+                        height = value.round();
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -80,21 +113,21 @@ class _InputPageState extends State<InputPage> {
             children: <Widget>[
               Expanded(
                 child: reusable(
-                  colour: widgetcolor,
+                  colour: kwidgetcolor,
                 ),
               ),
               Expanded(
                 child: reusable(
-                  colour: widgetcolor,
+                  colour: kwidgetcolor,
                 ),
               )
             ],
           )),
           Container(
-            color: widgetcolorbottom,
+            color: kwidgetcolorbottom,
             margin: EdgeInsets.only(top: 10),
             width: double.infinity,
-            height: bottomContanerH,
+            height: kbottomContanerH,
           ),
         ],
       ),
